@@ -47,6 +47,7 @@ DEBUGSYMBOLS=-g
 
 if [ $? != 0 ] ; then >&2 $ECHO "Terminating..."; exit 1 ; fi
 
+# 注意 `$TEMP' 周围的引号：它们是必不可少的, 设置参数
 # Note the quotes around `$TEMP': they are essential!
 eval set -- "$TEMP"
 
@@ -58,6 +59,7 @@ fi
 
 # Convert to abspath always so that generated mk is include-able from everywhere
 while true; do
+    echo -e "para1:$1"
     case "$1" in
         --headers ) HDRS_IN="$(${REALPATH} $2)"; shift 2 ;;
         --libs ) LIBS_IN="$(${REALPATH} $2)"; shift 2 ;;

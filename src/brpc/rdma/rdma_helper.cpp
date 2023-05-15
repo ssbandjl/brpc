@@ -15,6 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
+// #define BRPC_WITH_RDMA 1
+
 #if BRPC_WITH_RDMA
 
 #include <dlfcn.h>                                // dlopen

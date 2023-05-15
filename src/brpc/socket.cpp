@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+// #define BRPC_WITH_RDMA 1
 
 #include "butil/compat.h"                        // OS_MACOSX
 #include <openssl/ssl.h>
