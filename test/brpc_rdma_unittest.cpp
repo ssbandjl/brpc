@@ -1962,7 +1962,7 @@ int main(int argc, char* argv[]) {
     if (!FLAGS_rdma_test_enable) {
         // skip UT requiring rdma runtime environment
         rdma::g_rdma_available.store(true, butil::memory_order_relaxed);
-        rdma::g_skip_rdma_init = true;
+        rdma::g_skip_rdma_init = false;
     }
 #endif  // if BRPC_WITH_RDMA
     return RUN_ALL_TESTS();
