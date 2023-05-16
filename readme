@@ -1,0 +1,20 @@
+cd test;sh run_tests.sh
+rdma test test/brpc_rdma_unittest.cpp -> RUN_ALL_TESTS
+TEST_F -> 
+
+sh config_brpc.sh --headers=/usr/include --libs=/usr/lib --with-rdma
+make
+
+tools/print_gcc_version.cc
+
+$ cd example/echo_c++
+$ make
+$ ./echo_server &
+$ ./echo_client
+
+gflags：广泛用于定义全局选项
+protobuf：消息的序列化，服务的接口
+leveldb：rpcz 需要记录 RPC 以进行跟踪
+
+
+

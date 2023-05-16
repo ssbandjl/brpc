@@ -1,0 +1,331 @@
+++ uname -s
++ SYSTEM=Linux
++ '[' Linux = Darwin ']'
++ '[' -z /bin/sh ']'
++ ECHO='echo -e'
++ SO=so
++ LDD=ldd
+++ getopt -o v: --long headers:,libs:,cc:,cxx:,with-glog,with-thrift,with-rdma,with-mesalink,nodebugsymbols -n config_brpc -- --headers=/usr/include --libs=/usr/lib
++ TEMP=' --headers '\''/usr/include'\'' --libs '\''/usr/lib'\'' --'
++ WITH_GLOG=0
++ WITH_THRIFT=0
++ WITH_RDMA=0
++ WITH_MESALINK=0
++ DEBUGSYMBOLS=-g
++ '[' 0 '!=' 0 ']'
++ eval set -- ' --headers '\''/usr/include'\'' --libs '\''/usr/lib'\'' --'
+++ set -- --headers /usr/include --libs /usr/lib --
++ '[' Linux = Darwin ']'
++ REALPATH='readlink -f'
++ true
++ echo -e para1:--headers
+para1:--headers
++ case "$1" in
+++ readlink -f /usr/include
++ HDRS_IN=/usr/include
++ shift 2
++ true
++ echo -e para1:--libs
+para1:--libs
++ case "$1" in
+++ readlink -f /usr/lib
++ LIBS_IN=/usr/lib
++ shift 2
++ true
++ echo -e para1:--
+para1:--
++ case "$1" in
++ shift
++ break
++ '[' -z '' ']'
++ '[' '!' -z '' ']'
++ CC=gcc
++ CXX=g++
++ '[' Linux = Darwin ']'
+++ g++ tools/print_gcc_version.cc -o print_gcc_version
+++ ./print_gcc_version
+++ rm ./print_gcc_version
++ GCC_VERSION=40805
++ '[' 40805 -gt 0 ']'
++ '[' 40805 -lt 40800 ']'
++ '[' -z /usr/include ']'
++ '[' -z /usr/lib ']'
++ '[' Linux = Darwin ']'
+++ find_dir_of_lib ssl
++++ find /usr/lib -name libssl.a -o -name libssl.so
++++ head -n1
+++ local lib=
+++ '[' '!' -z '' ']'
++ OPENSSL_LIB=
+++ find_dir_of_header_or_die openssl/ssl.h mesalink/openssl/ssl.h
+++ '[' -z mesalink/openssl/ssl.h ']'
++++ find_dir_of_header_excluding openssl/ssl.h mesalink/openssl/ssl.h
++++ find -L /usr/include -path '*/openssl/ssl.h'
++++ grep -v 'mesalink/openssl/ssl.h$'
++++ head -n1
++++ sed 's|openssl/ssl.h||g'
+++ local dir=/usr/include/
+++ '[' -z /usr/include/ ']'
+++ echo -e /usr/include/
++ OPENSSL_HDR=/usr/include/
++ '[' 0 '!=' 0 ']'
++ STATIC_LINKINGS=
++ DYNAMIC_LINKINGS='-lpthread -lssl -lcrypto -ldl -lz'
++ '[' 0 '!=' 0 ']'
++ '[' Linux = Linux ']'
++ DYNAMIC_LINKINGS='-lpthread -lssl -lcrypto -ldl -lz -lrt'
++ '[' Linux = Darwin ']'
+++ find_dir_of_lib_or_die gflags
++++ find_dir_of_lib gflags
+++++ find /usr/lib -name libgflags.a -o -name libgflags.so
+++++ head -n1
++++ local lib=
++++ '[' '!' -z '' ']'
+++ local dir=
+++ '[' -z '' ']'
+++ echo -e 'Fail to find gflags from --libs'
+Fail to find gflags from --libs
+++ exit 1
++ GFLAGS_LIB=
++ append_linking gflags
++ '[' -f gflags/lib.a ']'
++ DYNAMIC_LINKINGS='-lpthread -lssl -lcrypto -ldl -lz -lrt -l'
++ export STATICALLY_LINKED_=0
++ STATICALLY_LINKED_=0
+++ find_dir_of_lib_or_die protobuf
++++ find_dir_of_lib protobuf
+++++ find /usr/lib -name libprotobuf.a -o -name libprotobuf.so
+++++ head -n1
++++ local lib=
++++ '[' '!' -z '' ']'
+++ local dir=
+++ '[' -z '' ']'
+++ echo -e 'Fail to find protobuf from --libs'
+Fail to find protobuf from --libs
+++ exit 1
++ PROTOBUF_LIB=
++ append_linking protobuf
++ '[' -f protobuf/lib.a ']'
++ DYNAMIC_LINKINGS='-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l'
++ export STATICALLY_LINKED_=0
++ STATICALLY_LINKED_=0
+++ find_dir_of_lib_or_die leveldb
++++ find_dir_of_lib leveldb
+++++ find /usr/lib -name libleveldb.a -o -name libleveldb.so
+++++ head -n1
++++ local lib=
++++ '[' '!' -z '' ']'
+++ local dir=
+++ '[' -z '' ']'
+++ echo -e 'Fail to find leveldb from --libs'
+Fail to find leveldb from --libs
+++ exit 1
++ LEVELDB_LIB=
++ '[' -f /libleveldb.a ']'
++ DYNAMIC_LINKINGS='-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb'
+++ find_bin_or_die protoc
++++ find_bin protoc
+++++ find -L /usr/lib -type f -name protoc
+++++ head -n1
++++ TARGET_BIN=
++++ '[' '!' -z '' ']'
++++ which protoc
+++ TARGET_BIN=/bin/protoc
+++ '[' '!' -z /bin/protoc ']'
+++ echo -e /bin/protoc
++ PROTOC=/bin/protoc
+++ find_dir_of_header_or_die gflags/gflags.h
+++ '[' -z '' ']'
++++ find_dir_of_header gflags/gflags.h
++++ find -L /usr/include -path '*/gflags/gflags.h'
++++ head -n1
++++ sed 's|gflags/gflags.h||g'
+++ local dir=/usr/include/
+++ '[' -z /usr/include/ ']'
+++ echo -e /usr/include/
++ GFLAGS_HDR=/usr/include/
+++ grep 'namespace [_A-Za-z0-9]\+ {' /usr/include//gflags/gflags_declare.h
+++ head -1
+++ awk '{print $2}'
++ GFLAGS_NS=gflags
++ '[' gflags = GFLAGS_NAMESPACE ']'
++ '[' -z gflags ']'
+++ find_dir_of_header_or_die google/protobuf/message.h
+++ '[' -z '' ']'
++++ find_dir_of_header google/protobuf/message.h
++++ find -L /usr/include -path '*/google/protobuf/message.h'
++++ head -n1
++++ sed 's|google/protobuf/message.h||g'
+++ local dir=/usr/include/
+++ '[' -z /usr/include/ ']'
+++ echo -e /usr/include/
++ PROTOBUF_HDR=/usr/include/
+++ find_dir_of_header_or_die leveldb/db.h
+++ '[' -z '' ']'
++++ find_dir_of_header leveldb/db.h
++++ find -L /usr/include -path '*/leveldb/db.h'
++++ head -n1
++++ sed 's|leveldb/db.h||g'
+++ local dir=/usr/include/
+++ '[' -z /usr/include/ ']'
+++ echo -e /usr/include/
++ LEVELDB_HDR=/usr/include/
+++ echo -e '/usr/include/\n/usr/include/\n/usr/include/\n/usr/include/'
+++ sort
+++ uniq
++ HDRS=/usr/include/
+++ echo -e '\n\n\n\n'
+++ sort
+++ uniq
++ LIBS=
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually'
++ append_to_output SYSTEM=Linux
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux'
+++ echo -e /usr/include/
++ append_to_output HDRS=/usr/include/
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/'
+++ echo -e
++ append_to_output LIBS=
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS='
++ append_to_output PROTOC=/bin/protoc
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc'
++ append_to_output PROTOBUF_HDR=/usr/include/
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/'
++ append_to_output CC=gcc
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc'
++ append_to_output CXX=g++
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++'
++ append_to_output GCC_VERSION=40805
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805'
++ append_to_output STATIC_LINKINGS=
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS='
++ append_to_output 'DYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb'
++ CPPFLAGS='-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags'
++ CPPFLAGS='-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__'
++ '[' '!' -z -g ']'
++ CPPFLAGS='-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g'
++ '[' Linux = Darwin ']'
++ '[' 0 '!=' 0 ']'
++ '[' 0 '!=' 0 ']'
++ '[' 0 '!=' 0 ']'
++ append_to_output 'CPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g'
++ append_to_output '# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+'
++ append_to_output 'ifeq ($(NEED_LIBPROTOC), 1)'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)'
+++ find -name 'libprotoc.*'
+++ head -n1
++ PROTOC_LIB=
++ '[' -z '' ']'
++ append_to_output '   $(error "Fail to find libprotoc")'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")'
++ append_to_output endif
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif'
++ OLD_HDRS=/usr/include/
++ OLD_LIBS=
++ append_to_output 'ifeq ($(NEED_GPERFTOOLS), 1)'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif\nifeq ($(NEED_GPERFTOOLS), 1)'
+++ find_dir_of_lib tcmalloc_and_profiler
++++ find /usr/lib -name libtcmalloc_and_profiler.a -o -name libtcmalloc_and_profiler.so
++++ head -n1
+++ local lib=
+++ '[' '!' -z '' ']'
++ TCMALLOC_LIB=
++ '[' -z '' ']'
++ append_to_output '    $(error "Fail to find gperftools")'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif\nifeq ($(NEED_GPERFTOOLS), 1)\n    $(error "Fail to find gperftools")'
++ append_to_output endif
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif\nifeq ($(NEED_GPERFTOOLS), 1)\n    $(error "Fail to find gperftools")\nendif'
++ '[' 0 '!=' 0 ']'
+++ find_dir_of_lib gtest
++++ find /usr/lib -name libgtest.a -o -name libgtest.so
++++ head -n1
+++ local lib=
+++ '[' '!' -z '' ']'
++ GTEST_LIB=
++ HDRS=/usr/include/
++ LIBS=
++ append_to_output 'ifeq ($(NEED_GTEST), 1)'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif\nifeq ($(NEED_GPERFTOOLS), 1)\n    $(error "Fail to find gperftools")\nendif\nifeq ($(NEED_GTEST), 1)'
++ '[' -z '' ']'
++ append_to_output '    $(error "Fail to find gtest")'
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif\nifeq ($(NEED_GPERFTOOLS), 1)\n    $(error "Fail to find gperftools")\nendif\nifeq ($(NEED_GTEST), 1)\n    $(error "Fail to find gtest")'
++ append_to_output endif
++ OUTPUT_CONTENT='# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif\nifeq ($(NEED_GPERFTOOLS), 1)\n    $(error "Fail to find gperftools")\nendif\nifeq ($(NEED_GTEST), 1)\n    $(error "Fail to find gtest")\nendif'
++ cat
+++ basename config_brpc.sh
++ echo -e '# Generated by config_brpc.sh, don'\''t modify manually\nSYSTEM=Linux\nHDRS=/usr/include/\nLIBS=\nPROTOC=/bin/protoc\nPROTOBUF_HDR=/usr/include/\nCC=gcc\nCXX=g++\nGCC_VERSION=40805\nSTATIC_LINKINGS=\nDYNAMIC_LINKINGS=-lpthread -lssl -lcrypto -ldl -lz -lrt -l -l -lleveldb\nCPPFLAGS=-DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g\n# without the flag, linux+arm64 may crash due to folding on TLS.
+ifeq ($(CC),gcc)
+  ifeq ($(shell uname -p),aarch64) 
+    CPPFLAGS+=-fno-gcse
+  endif
+endif
+\nifeq ($(NEED_LIBPROTOC), 1)\n   $(error "Fail to find libprotoc")\nendif\nifeq ($(NEED_GPERFTOOLS), 1)\n    $(error "Fail to find gperftools")\nendif\nifeq ($(NEED_GTEST), 1)\n    $(error "Fail to find gtest")\nendif'

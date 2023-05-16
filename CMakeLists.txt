@@ -71,7 +71,7 @@ if(WITH_THRIFT)
     set(THRIFT_LIB "thrift")
 endif()
 
-set(WITH_RDMA_VAL "0")
+set(WITH_RDMA_VAL "1")
 if(WITH_RDMA)
     set(WITH_RDMA_VAL "1")
 endif()

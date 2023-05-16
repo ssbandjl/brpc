@@ -1,0 +1,242 @@
+[root@n72 test]# ./brpc_rdma_unittest 
+[==========] Running 42 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 42 tests from RdmaTest
+[ RUN      ] RdmaTest.client_close_before_hello_send
+I0516 09:01:54.475696 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:54.520776 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:54.621200 1418480 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=113 fd=8 addr=127.0.0.1:39440:8713} (0x0x227a000)
+W0516 09:01:54.621228 1418480 src/brpc/rdma/rdma_endpoint.cpp:565] Fail to read Hello Message from client:Socket{id=113 fd=8 addr=127.0.0.1:39440:8713} (0x0x227a000) 127.0.0.1:39440: Got EOF
+I0516 09:01:54.721294 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_close_before_hello_send (251 ms)
+[ RUN      ] RdmaTest.client_hello_msg_invalid_magic_str
+I0516 09:01:54.722004 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:54.722014 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:54.822477 1418491 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=226 fd=8 addr=127.0.0.1:39444:8713} (0x0x22ce000)
+I0516 09:01:54.822527 1418491 src/brpc/rdma/rdma_endpoint.cpp:573] It seems that the client does not use RDMA, fallback to TCP:Socket{id=226 fd=8 addr=127.0.0.1:39444:8713} (0x0x22ce000)
+I0516 09:01:54.922423 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_hello_msg_invalid_magic_str (202 ms)
+[ RUN      ] RdmaTest.client_close_during_hello_send
+I0516 09:01:54.923346 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:54.923356 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:55.023868 1418520 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=339 fd=8 addr=127.0.0.1:39448:8713} (0x0x2450000)
+W0516 09:01:55.123959 1418484 src/brpc/rdma/rdma_endpoint.cpp:565] Fail to read Hello Message from client:Socket{id=339 fd=8 addr=127.0.0.1:39448:8713} (0x0x2450000) 127.0.0.1:39448: Got EOF
+I0516 09:01:55.324512 1418485 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=452 fd=8 addr=127.0.0.1:39484:8713} (0x0x24a8000)
+W0516 09:01:55.424630 1418527 src/brpc/rdma/rdma_endpoint.cpp:586] Fail to read Hello Message from client:Socket{id=452 fd=8 addr=127.0.0.1:39484:8713} (0x0x24a8000): Got EOF
+I0516 09:01:55.625063 1418486 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=565 fd=8 addr=127.0.0.1:39488:8713} (0x0x2252000)
+W0516 09:01:55.725119 1418480 src/brpc/rdma/rdma_endpoint.cpp:586] Fail to read Hello Message from client:Socket{id=565 fd=8 addr=127.0.0.1:39488:8713} (0x0x2252000): Got EOF
+I0516 09:01:55.825296 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_close_during_hello_send (902 ms)
+[ RUN      ] RdmaTest.client_hello_msg_invalid_len
+I0516 09:01:55.825980 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:55.825991 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:55.926259 1418518 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=678 fd=8 addr=127.0.0.1:39490:8713} (0x0x2516000)
+W0516 09:01:55.926282 1418518 src/brpc/rdma/rdma_endpoint.cpp:596] Fail to parse Hello Message length from client:Socket{id=678 fd=8 addr=127.0.0.1:39490:8713} (0x0x2516000)
+I0516 09:01:56.126737 1418463 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=791 fd=9 addr=127.0.0.1:39492:8713} (0x0x254a000)
+W0516 09:01:56.126764 1418463 src/brpc/rdma/rdma_endpoint.cpp:596] Fail to parse Hello Message length from client:Socket{id=791 fd=9 addr=127.0.0.1:39492:8713} (0x0x254a000)
+I0516 09:01:56.226818 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_hello_msg_invalid_len (402 ms)
+[ RUN      ] RdmaTest.client_hello_msg_invalid_version
+I0516 09:01:56.227369 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:56.227378 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:56.327835 1418502 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=904 fd=8 addr=127.0.0.1:39494:8713} (0x0x2592000)
+W0516 09:01:56.327896 1418502 src/brpc/rdma/rdma_endpoint.cpp:609] Fail to negotiate with client, fallback to tcp:Socket{id=904 fd=8 addr=127.0.0.1:39494:8713} (0x0x2592000)
+I0516 09:01:56.427860 1418485 src/brpc/rdma/rdma_endpoint.cpp:699] Handshake ends (use tcp) on Socket{id=904 fd=8 addr=127.0.0.1:39494:8713} (0x0x2592000)
+W0516 09:01:56.527912 1418527 src/brpc/input_messenger.cpp:374] Fail to read from Socket{id=904 fd=8 addr=127.0.0.1:39494:8713} (0x2592000): Connection reset by peer
+I0516 09:01:56.728382 1418486 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=1017 fd=8 addr=127.0.0.1:39496:8713} (0x0x25d8000)
+W0516 09:01:56.728434 1418486 src/brpc/rdma/rdma_endpoint.cpp:609] Fail to negotiate with client, fallback to tcp:Socket{id=1017 fd=8 addr=127.0.0.1:39496:8713} (0x0x25d8000)
+W0516 09:01:56.828433 1418464 src/brpc/rdma/rdma_endpoint.cpp:684] Fail to parse Hello Message length from client:Socket{id=1017 fd=8 addr=127.0.0.1:39496:8713} (0x0x25d8000)
+I0516 09:01:56.928586 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_hello_msg_invalid_version (701 ms)
+[ RUN      ] RdmaTest.client_hello_msg_invalid_sq_rq_block_size
+I0516 09:01:56.929258 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:56.929270 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:57.029717 1418518 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=227 fd=8 addr=127.0.0.1:39498:8713} (0x0x22ce240)
+W0516 09:01:57.029772 1418518 src/brpc/rdma/rdma_endpoint.cpp:609] Fail to negotiate with client, fallback to tcp:Socket{id=227 fd=8 addr=127.0.0.1:39498:8713} (0x0x22ce240)
+I0516 09:01:57.129853 1418495 src/brpc/rdma/rdma_endpoint.cpp:699] Handshake ends (use tcp) on Socket{id=227 fd=8 addr=127.0.0.1:39498:8713} (0x0x22ce240)
+W0516 09:01:57.229932 1418463 src/brpc/input_messenger.cpp:374] Fail to read from Socket{id=227 fd=8 addr=127.0.0.1:39498:8713} (0x22ce240): Connection reset by peer
+I0516 09:01:57.330364 1418484 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=1130 fd=9 addr=127.0.0.1:39502:8713} (0x0x2614000)
+W0516 09:01:57.330428 1418484 src/brpc/rdma/rdma_endpoint.cpp:609] Fail to negotiate with client, fallback to tcp:Socket{id=1130 fd=9 addr=127.0.0.1:39502:8713} (0x0x2614000)
+I0516 09:01:57.430493 1418497 src/brpc/rdma/rdma_endpoint.cpp:699] Handshake ends (use tcp) on Socket{id=1130 fd=9 addr=127.0.0.1:39502:8713} (0x0x2614000)
+W0516 09:01:57.530552 1418466 src/brpc/input_messenger.cpp:374] Fail to read from Socket{id=1130 fd=9 addr=127.0.0.1:39502:8713} (0x2614000): Connection reset by peer
+I0516 09:01:57.630946 1418485 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=566 fd=8 addr=127.0.0.1:39504:8713} (0x0x2252240)
+W0516 09:01:57.631002 1418485 src/brpc/rdma/rdma_endpoint.cpp:609] Fail to negotiate with client, fallback to tcp:Socket{id=566 fd=8 addr=127.0.0.1:39504:8713} (0x0x2252240)
+I0516 09:01:57.731033 1418527 src/brpc/rdma/rdma_endpoint.cpp:699] Handshake ends (use tcp) on Socket{id=566 fd=8 addr=127.0.0.1:39504:8713} (0x0x2252240)
+I0516 09:01:57.831047 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_hello_msg_invalid_sq_rq_block_size (903 ms)
+[ RUN      ] RdmaTest.client_close_after_qp_build
+I0516 09:01:57.831930 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:57.831940 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:57.932154 1418491 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=8589935157 fd=8 addr=127.0.0.1:39508:8713} (0x0x2252000)
+W0516 09:01:58.032306 1418506 src/brpc/rdma/rdma_endpoint.cpp:672] Fail to read ack message from client:Socket{id=8589935157 fd=8 addr=127.0.0.1:39508:8713} (0x0x2252000): Connection reset by peer
+I0516 09:01:58.132429 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_close_after_qp_build (301 ms)
+[ RUN      ] RdmaTest.client_close_during_ack_send
+I0516 09:01:58.133131 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:58.133142 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:58.233700 1418472 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=1243 fd=8 addr=127.0.0.1:39510:8713} (0x0x269a000)
+W0516 09:01:58.433785 1418497 src/brpc/rdma/rdma_endpoint.cpp:672] Fail to read ack message from client:Socket{id=1243 fd=8 addr=127.0.0.1:39510:8713} (0x0x269a000): Connection reset by peer
+I0516 09:01:58.533888 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_close_during_ack_send (402 ms)
+[ RUN      ] RdmaTest.client_close_after_ack_send
+I0516 09:01:58.534485 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:58.534495 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:58.634733 1418464 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=567 fd=8 addr=127.0.0.1:39512:8713} (0x0x2252480)
+I0516 09:01:58.734798 1418510 src/brpc/rdma/rdma_endpoint.cpp:699] Handshake ends (use tcp) on Socket{id=567 fd=8 addr=127.0.0.1:39512:8713} (0x0x2252480)
+W0516 09:01:58.834982 1418517 src/brpc/input_messenger.cpp:374] Fail to read from Socket{id=567 fd=8 addr=127.0.0.1:39512:8713} (0x2252480): Connection reset by peer
+I0516 09:01:59.035333 1418518 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=1356 fd=8 addr=127.0.0.1:39514:8713} (0x0x26ec000)
+I0516 09:01:59.135461 1418506 src/brpc/rdma/rdma_endpoint.cpp:693] Handshake ends (use rdma) on Socket{id=1356 fd=8 addr=127.0.0.1:39514:8713} (0x0x26ec000)
+W0516 09:01:59.235497 1418495 src/brpc/rdma/rdma_endpoint.cpp:269] Fail to read from 0x26ec000: Connection reset by peer
+I0516 09:01:59.335688 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_close_after_ack_send (802 ms)
+[ RUN      ] RdmaTest.client_send_data_on_tcp_after_ack_send
+I0516 09:01:59.336352 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:01:59.336362 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:01:59.436666 1418484 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=1244 fd=8 addr=127.0.0.1:39516:8713} (0x0x269a240)
+I0516 09:01:59.536728 1418471 src/brpc/rdma/rdma_endpoint.cpp:699] Handshake ends (use tcp) on Socket{id=1244 fd=8 addr=127.0.0.1:39516:8713} (0x0x269a240)
+W0516 09:01:59.736962 1418527 src/brpc/input_messenger.cpp:374] Fail to read from Socket{id=1244 fd=8 addr=127.0.0.1:39516:8713} (0x269a240): Connection reset by peer
+I0516 09:01:59.937413 1418490 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=568 fd=8 addr=127.0.0.1:39518:8713} (0x0x22526c0)
+I0516 09:02:00.037527 1418480 src/brpc/rdma/rdma_endpoint.cpp:693] Handshake ends (use rdma) on Socket{id=568 fd=8 addr=127.0.0.1:39518:8713} (0x0x22526c0)
+W0516 09:02:00.137638 1418476 src/brpc/rdma/rdma_endpoint.cpp:281] Read unexpected data from 0x22526c0
+I0516 09:02:00.237804 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.client_send_data_on_tcp_after_ack_send (902 ms)
+[ RUN      ] RdmaTest.server_miss_before_hello_send
+I0516 09:02:00.238786 1418463 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39520
+W0516 09:02:00.738835 1418517 src/brpc/rdma/rdma_endpoint.cpp:461] Fail to get hello message from server:Socket{id=42949673526 fd=7 addr=127.0.0.1:8713:39520} (0x0x2252240): Connection reset by peer
+[       OK ] RdmaTest.server_miss_before_hello_send (500 ms)
+[ RUN      ] RdmaTest.server_close_before_hello_send
+I0516 09:02:00.739121 1418526 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39522
+W0516 09:02:00.839250 1418506 src/brpc/rdma/rdma_endpoint.cpp:461] Fail to get hello message from server:Socket{id=17179869184 fd=7 addr=127.0.0.1:8713:39522} (0x0x20f0000): Got EOF
+[       OK ] RdmaTest.server_close_before_hello_send (201 ms)
+[ RUN      ] RdmaTest.server_miss_during_magic_str
+I0516 09:02:00.939824 1418466 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39526
+W0516 09:02:01.439855 1418497 src/brpc/rdma/rdma_endpoint.cpp:461] Fail to get hello message from server:Socket{id=25769803776 fd=7 addr=127.0.0.1:8713:39526} (0x0x20f0000): Got EOF
+[       OK ] RdmaTest.server_miss_during_magic_str (500 ms)
+[ RUN      ] RdmaTest.server_close_during_magic_str
+I0516 09:02:01.440122 1418485 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39528
+W0516 09:02:01.540242 1418486 src/brpc/rdma/rdma_endpoint.cpp:461] Fail to get hello message from server:Socket{id=3 fd=7 addr=127.0.0.1:8713:39528} (0x0x20f06c0): Got EOF
+[       OK ] RdmaTest.server_close_during_magic_str (201 ms)
+[ RUN      ] RdmaTest.server_hello_invalid_magic_str
+I0516 09:02:01.640990 1418490 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39530
+W0516 09:02:01.741159 1418527 src/brpc/rdma/rdma_endpoint.cpp:468] Read unexpected data during handshake:Socket{id=8589934595 fd=7 addr=127.0.0.1:8713:39530} (0x0x20f06c0)
+[       OK ] RdmaTest.server_hello_invalid_magic_str (201 ms)
+[ RUN      ] RdmaTest.server_miss_during_hello_msg
+I0516 09:02:01.841481 1418491 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39532
+W0516 09:02:02.341604 1418520 src/brpc/rdma/rdma_endpoint.cpp:478] Fail to get Hello Message from server:Socket{id=17179869187 fd=7 addr=127.0.0.1:8713:39532} (0x0x20f06c0): Got EOF
+[       OK ] RdmaTest.server_miss_during_hello_msg (500 ms)
+[ RUN      ] RdmaTest.server_close_during_hello_msg
+I0516 09:02:02.342149 1418526 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39534
+W0516 09:02:02.442237 1418495 src/brpc/rdma/rdma_endpoint.cpp:478] Fail to get Hello Message from server:Socket{id=7 fd=7 addr=127.0.0.1:8713:39534} (0x0x20f0fc0): Got EOF
+[       OK ] RdmaTest.server_close_during_hello_msg (201 ms)
+[ RUN      ] RdmaTest.server_hello_invalid_msg_len
+I0516 09:02:02.542455 1418502 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39536
+W0516 09:02:02.642572 1418472 src/brpc/rdma/rdma_endpoint.cpp:487] Fail to parse Hello Message length from server:Socket{id=8589934599 fd=7 addr=127.0.0.1:8713:39536} (0x0x20f0fc0)
+[       OK ] RdmaTest.server_hello_invalid_msg_len (200 ms)
+[ RUN      ] RdmaTest.server_hello_invalid_version
+I0516 09:02:02.742975 1418485 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39538
+W0516 09:02:02.843111 1418484 src/brpc/rdma/rdma_endpoint.cpp:501] Fail to negotiate with server, fallback to tcp:Socket{id=17179869191 fd=7 addr=127.0.0.1:8713:39538} (0x0x20f0fc0)
+I0516 09:02:02.843207 1418484 src/brpc/rdma/rdma_endpoint.cpp:544] Handshake ends (use tcp) on Socket{id=17179869191 fd=7 addr=127.0.0.1:8713:39538} (0x0x20f0fc0)
+W0516 09:02:03.243247 1418503 src/brpc/input_messenger.cpp:374] Fail to read from Socket{id=17179869191 fd=7 addr=127.0.0.1:8713:39538} (0x20f0fc0): Connection reset by peer
+[       OK ] RdmaTest.server_hello_invalid_version (501 ms)
+[ RUN      ] RdmaTest.server_hello_invalid_sq_rq_size
+I0516 09:02:03.243644 1418480 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39540
+W0516 09:02:03.343711 1418490 src/brpc/rdma/rdma_endpoint.cpp:501] Fail to negotiate with server, fallback to tcp:Socket{id=11 fd=7 addr=127.0.0.1:8713:39540} (0x0x20f18c0)
+I0516 09:02:03.343737 1418490 src/brpc/rdma/rdma_endpoint.cpp:544] Handshake ends (use tcp) on Socket{id=11 fd=7 addr=127.0.0.1:8713:39540} (0x0x20f18c0)
+W0516 09:02:03.743716 1418476 src/brpc/input_messenger.cpp:374] Fail to read from Socket{id=11 fd=7 addr=127.0.0.1:8713:39540} (0x20f18c0): Connection reset by peer
+[       OK ] RdmaTest.server_hello_invalid_sq_rq_size (500 ms)
+[ RUN      ] RdmaTest.server_miss_after_ack
+I0516 09:02:03.743956 1418463 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39544
+I0516 09:02:03.844083 1418510 src/brpc/rdma/rdma_endpoint.cpp:540] Handshake ends (use rdma) on Socket{id=13 fd=7 addr=127.0.0.1:8713:39544} (0x0x20f1d40)
+[       OK ] RdmaTest.server_miss_after_ack (501 ms)
+[ RUN      ] RdmaTest.server_close_after_ack
+I0516 09:02:04.244770 1418506 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39546
+I0516 09:02:04.344774 1418526 src/brpc/rdma/rdma_endpoint.cpp:540] Handshake ends (use rdma) on Socket{id=15 fd=8 addr=127.0.0.1:8713:39546} (0x0x20f21c0)
+[       OK ] RdmaTest.server_close_after_ack (251 ms)
+[ RUN      ] RdmaTest.server_send_data_on_tcp_after_ack
+I0516 09:02:04.495472 1418472 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39548
+I0516 09:02:04.595575 1418471 src/brpc/rdma/rdma_endpoint.cpp:540] Handshake ends (use rdma) on Socket{id=8589934607 fd=7 addr=127.0.0.1:8713:39548} (0x0x20f21c0)
+W0516 09:02:04.695653 1418485 src/brpc/rdma/rdma_endpoint.cpp:281] Read unexpected data from 0x20f21c0
+[       OK ] RdmaTest.server_send_data_on_tcp_after_ack (250 ms)
+[ RUN      ] RdmaTest.try_global_disable_rdma
+I0516 09:02:04.746286 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:02:04.746297 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:02:04.746484 1418491 brpc_rdma_unittest.cpp:105] sleep 200000us...
+I0516 09:02:04.946755 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.try_global_disable_rdma (202 ms)
+[ RUN      ] RdmaTest.server_option_invalid
+W0516 09:02:04.947278 1418458 src/brpc/server.cpp:725] RTMP is not supported by RDMA
+W0516 09:02:04.947287 1418458 src/brpc/server.cpp:733] NSHEAD is not supported by RDMA
+W0516 09:02:04.947291 1418458 src/brpc/server.cpp:737] MONGO is not supported by RDMA
+W0516 09:02:04.947306 1418458 src/brpc/server.cpp:729] SSL is not supported by RDMA
+[       OK ] RdmaTest.server_option_invalid (0 ms)
+[ RUN      ] RdmaTest.channel_option_invalid
+W0516 09:02:04.947398 1418458 src/brpc/channel.cpp:155] Cannot use rtmp over RDMA
+E0516 09:02:04.947406 1418458 src/brpc/channel.cpp:169] Channel does not support the protocol
+W0516 09:02:04.947410 1418458 src/brpc/channel.cpp:155] Cannot use nshead over RDMA
+W0516 09:02:04.947416 1418458 src/brpc/channel.cpp:155] Cannot use nshead_mcpack over RDMA
+W0516 09:02:04.947421 1418458 src/brpc/channel.cpp:155] Cannot use nova_pbrpc over RDMA
+W0516 09:02:04.947425 1418458 src/brpc/channel.cpp:155] Cannot use public_pbrpc over RDMA
+W0516 09:02:04.947429 1418458 src/brpc/channel.cpp:155] Cannot use redis over RDMA
+W0516 09:02:04.947434 1418458 src/brpc/channel.cpp:155] Cannot use memcache over RDMA
+W0516 09:02:04.947438 1418458 src/brpc/channel.cpp:155] Cannot use ubrpc_compack over RDMA
+E0516 09:02:04.947447 1418458 src/brpc/protocol.cpp:183] Unknown protocol `itp', supported protocols: baidu_std streaming_rpc hulu_pbrpc sofa_pbrpc rtmp http public_pbrpc nova_pbrpc redis nshead mongo ubrpc_compack memcache nshead_mcpack ubrpc_mcpack2 esp h2
+E0516 09:02:04.947458 1418458 src/brpc/channel.cpp:169] Channel does not support the protocol
+W0516 09:02:04.947463 1418458 src/brpc/channel.cpp:155] Cannot use esp over RDMA
+W0516 09:02:04.947467 1418458 src/brpc/channel.cpp:155] Cannot use hulu_pbrpc over RDMA
+W0516 09:02:04.947471 1418458 src/brpc/channel.cpp:155] Cannot use sofa_pbrpc over RDMA
+W0516 09:02:04.947476 1418458 src/brpc/channel.cpp:155] Cannot use http over RDMA
+W0516 09:02:04.947483 1418458 src/brpc/channel.cpp:151] Cannot use SSL and RDMA at the same time
+[       OK ] RdmaTest.channel_option_invalid (0 ms)
+[ RUN      ] RdmaTest.rdma_client_to_rdma_server
+[       OK ] RdmaTest.rdma_client_to_rdma_server (0 ms)
+[ RUN      ] RdmaTest.tcp_client_to_tcp_server
+I0516 09:02:04.947907 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:02:04.947916 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:02:05.048058 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.tcp_client_to_tcp_server (101 ms)
+[ RUN      ] RdmaTest.tcp_client_to_rdma_server
+I0516 09:02:05.048819 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:02:05.048828 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:02:05.048962 1418471 src/brpc/rdma/rdma_endpoint.cpp:557] Start handshake on Socket{id=8589934600 fd=8 addr=127.0.0.1:39566:8713} (0x0x20f1200)
+I0516 09:02:05.048980 1418471 src/brpc/rdma/rdma_endpoint.cpp:573] It seems that the client does not use RDMA, fallback to TCP:Socket{id=8589934600 fd=8 addr=127.0.0.1:39566:8713} (0x0x20f1200)
+I0516 09:02:05.148987 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+[       OK ] RdmaTest.tcp_client_to_rdma_server (101 ms)
+[ RUN      ] RdmaTest.rdma_client_to_tcp_server
+I0516 09:02:05.150269 1418458 src/brpc/server.cpp:1119] Server[MyEchoService] is serving on port=8713.
+I0516 09:02:05.150278 1418458 src/brpc/server.cpp:1122] Check out http://n72:8713 in web browser.
+I0516 09:02:05.150390 1418510 src/brpc/rdma/rdma_endpoint.cpp:415] Start handshake on 127.0.0.1:39588
+W0516 09:02:05.150566 1418463 src/brpc/input_messenger.cpp:239] Close Socket{id=8589934603 fd=8 addr=127.0.0.1:39588:8713} (0x20f18c0) due to unknown message: RDMA\00&\00\01\00\01\00\00\00\80\00\80\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00
+W0516 09:02:05.150617 1418510 src/brpc/rdma/rdma_endpoint.cpp:461] Fail to get hello message from server:Socket{id=17179869192 fd=7 addr=127.0.0.1:8713:39588} (0x0x20f1200): Got EOF
+I0516 09:02:05.250420 1418458 src/brpc/server.cpp:1179] Server[MyEchoService] is going to quit
+I0516 09:02:05.250977 1418498 src/brpc/socket.cpp:2452] Checking Socket{id=17179869192 addr=127.0.0.1:8713} (0x20f1200)
+[       OK ] RdmaTest.rdma_client_to_tcp_server (102 ms)
+[ RUN      ] RdmaTest.send_rpcs_in_one_qp
+[       OK ] RdmaTest.send_rpcs_in_one_qp (0 ms)
+[ RUN      ] RdmaTest.send_rpc_in_many_qp
+[       OK ] RdmaTest.send_rpc_in_many_qp (0 ms)
+[ RUN      ] RdmaTest.send_rpcs_as_pooled_connection
+[       OK ] RdmaTest.send_rpcs_as_pooled_connection (0 ms)
+[ RUN      ] RdmaTest.send_rpcs_as_short_connection
+[       OK ] RdmaTest.send_rpcs_as_short_connection (0 ms)
+[ RUN      ] RdmaTest.server_stop_during_rpc
+[       OK ] RdmaTest.server_stop_during_rpc (0 ms)
+[ RUN      ] RdmaTest.server_close_during_rpc
+[       OK ] RdmaTest.server_close_during_rpc (0 ms)
+[ RUN      ] RdmaTest.client_close_during_rpc
+[       OK ] RdmaTest.client_close_during_rpc (0 ms)
+[ RUN      ] RdmaTest.verbs_error_handling
+[       OK ] RdmaTest.verbs_error_handling (0 ms)
+[ RUN      ] RdmaTest.rdma_use_parallel_channel
+[       OK ] RdmaTest.rdma_use_parallel_channel (0 ms)
+[ RUN      ] RdmaTest.rdma_use_selective_channel
+[       OK ] RdmaTest.rdma_use_selective_channel (0 ms)
+[ RUN      ] RdmaTest.send_rpcs_with_user_defined_iobuf
+[       OK ] RdmaTest.send_rpcs_with_user_defined_iobuf (0 ms)
+[ RUN      ] RdmaTest.try_memory_pool_empty
+[       OK ] RdmaTest.try_memory_pool_empty (0 ms)
+[----------] 42 tests from RdmaTest (10781 ms total)
+
+[----------] Global test environment tear-down
+[==========] 42 tests from 1 test case ran. (10781 ms total)
+[  PASSED  ] 42 tests.
+[root@n72 test]# 
