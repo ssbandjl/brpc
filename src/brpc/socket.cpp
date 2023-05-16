@@ -703,7 +703,7 @@ int Socket::Create(const SocketOptions& options, SocketId* id) {
     m->_ssl_state = (options.initial_ssl_ctx == NULL ? SSL_OFF : SSL_UNKNOWN);
     m->_ssl_session = NULL;
     m->_ssl_ctx = options.initial_ssl_ctx;
-#if BRPC_WITH_RDMA
+#if 1
     CHECK(m->_rdma_ep == NULL);
     if (options.use_rdma) {
         m->_rdma_ep = new (std::nothrow)rdma::RdmaEndpoint(m);
@@ -801,7 +801,7 @@ int Socket::WaitAndReset(int32_t expected_nref) {
         }
     }
 
-#if BRPC_WITH_RDMA
+#if 1
     if (_rdma_ep) {
         _rdma_ep->Reset();
         _rdma_state = RDMA_UNKNOWN;
@@ -1109,7 +1109,7 @@ void Socket::OnRecycle() {
         }
     }
 
-#if BRPC_WITH_RDMA
+#if 1
     if (_rdma_ep) {
         delete _rdma_ep;
         _rdma_ep = NULL;
@@ -1698,7 +1698,7 @@ int Socket::StartWrite(WriteRequest* req, const WriteOptions& opt) {
         butil::IOBuf* data_arr[1] = { &req->data };
         nw = _conn->CutMessageIntoFileDescriptor(fd(), data_arr, 1);
     } else {
-#if BRPC_WITH_RDMA
+#if 1
         if (_rdma_ep && _rdma_state != RDMA_OFF) {
             butil::IOBuf* data_arr[1] = { &req->data };
             nw = _rdma_ep->CutFromIOBufList(data_arr, 1);
@@ -1795,7 +1795,7 @@ void* Socket::KeepWrite(void* void_arg) {
             // growing infinitely.
             const timespec duetime =
                 butil::milliseconds_from_now(WAIT_EPOLLOUT_TIMEOUT_MS);
-#if BRPC_WITH_RDMA
+#if 1
             if (s->_rdma_state == RDMA_ON) {
                 const int expected_val = s->_epollout_butex
                     ->load(butil::memory_order_acquire);
@@ -1867,7 +1867,7 @@ ssize_t Socket::DoWrite(WriteRequest* req) {
         if (_conn) {
             return _conn->CutMessageIntoFileDescriptor(fd(), data_list, ndata);
         } else {
-#if BRPC_WITH_RDMA
+#if 1
             if (_rdma_ep && _rdma_state != RDMA_OFF) {
                 return _rdma_ep->CutFromIOBufList(data_list, ndata);
             }
@@ -2440,7 +2440,7 @@ void Socket::DebugSocket(std::ostream& os, SocketId id) {
            << "\n}";
     }
 #endif
-#if BRPC_WITH_RDMA
+#if 1
     if (ptr->_rdma_state == RDMA_ON && ptr->_rdma_ep) {
         ptr->_rdma_ep->DebugInfo(os);
     }

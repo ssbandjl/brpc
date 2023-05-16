@@ -18,7 +18,7 @@
 #ifndef BRPC_RDMA_HELPER_H
 #define BRPC_RDMA_HELPER_H
 
-#if BRPC_WITH_RDMA
+#if 1
 
 #include <infiniband/verbs.h>
 #include <string>

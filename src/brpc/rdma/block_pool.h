@@ -18,7 +18,7 @@
 #ifndef BRPC_RDMA_BLOCK_POOL_H
 #define BRPC_RDMA_BLOCK_POOL_H
 
-#if BRPC_WITH_RDMA
+#if 1
 
 namespace brpc {
 namespace rdma {

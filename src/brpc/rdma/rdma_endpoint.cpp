@@ -16,7 +16,7 @@
 // under the License.
 
 // #define BRPC_WITH_RDMA 1
-#if BRPC_WITH_RDMA
+#if 1
 
 #include <gflags/gflags.h>
 #include "butil/fd_utility.h"

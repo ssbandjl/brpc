@@ -145,7 +145,7 @@ Channel::~Channel() {
     }
 }
 
-#if BRPC_WITH_RDMA
+#if 1
 static bool OptionsAvailableForRdma(const ChannelOptions* opt) {
     if (opt->has_ssl_options()) {
         LOG(WARNING) << "Cannot use SSL and RDMA at the same time";
@@ -171,7 +171,7 @@ int Channel::InitChannelOptions(const ChannelOptions* options) {
     }
 
     if (_options.use_rdma) {
-#if BRPC_WITH_RDMA
+#if 1
         if (!OptionsAvailableForRdma(&_options)) {
             return -1;
         }

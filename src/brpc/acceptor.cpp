@@ -275,7 +275,7 @@ void Acceptor::OnNewConnectionsUntilEAGAIN(Socket* acception) {
         butil::sockaddr2endpoint(&in_addr, in_len, &options.remote_side);
         options.user = acception->user();
         options.initial_ssl_ctx = am->_ssl_ctx;
-#if BRPC_WITH_RDMA
+#if 1
         if (am->_use_rdma) {
             options.on_edge_triggered_events = rdma::RdmaEndpoint::OnNewDataFromTcp;
         } else {

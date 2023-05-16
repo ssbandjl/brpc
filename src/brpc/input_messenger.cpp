@@ -500,7 +500,7 @@ int InputMessenger::Create(const butil::EndPoint& remote_side,
 
 int InputMessenger::Create(SocketOptions options, SocketId* id) {
     options.user = this;
-#if BRPC_WITH_RDMA
+#if 1
     if (options.use_rdma) {
         options.on_edge_triggered_events = rdma::RdmaEndpoint::OnNewDataFromTcp;
         options.app_connect = std::make_shared<rdma::RdmaConnect>();

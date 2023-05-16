@@ -20,7 +20,7 @@
 #include <sys/socket.h>
 #include <gtest/gtest.h>
 #include <gflags/gflags.h>
-#if BRPC_WITH_RDMA
+#if 1
 #include <google/protobuf/descriptor.h>
 #include "butil/endpoint.h"
 #include "butil/fd_guard.h"
@@ -1955,7 +1955,7 @@ TEST_F(RdmaTest, try_memory_pool_empty) {
 int main(int argc, char* argv[]) {
     testing::InitGoogleTest(&argc, argv);
     GFLAGS_NS::ParseCommandLineFlags(&argc, &argv, true);
-#if BRPC_WITH_RDMA
+#if 1
     rdma::FLAGS_rdma_trace_verbose = true;
     rdma::FLAGS_rdma_memory_pool_max_regions = 2;
     FLAGS_log_idle_connection_close = true;

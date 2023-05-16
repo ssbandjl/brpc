@@ -719,7 +719,7 @@ static bool CreateConcurrencyLimiter(const AdaptiveMaxConcurrency& amc,
     return true;
 }
 
-#if BRPC_WITH_RDMA
+#if 1
 static bool OptionsAvailableOverRdma(const ServerOptions* opt) {
     if (opt->rtmp_service) {
         LOG(WARNING) << "RTMP is not supported by RDMA";
@@ -782,7 +782,7 @@ int Server::StartInternal(const butil::EndPoint& endpoint,
     }
 
     if (_options.use_rdma) {
-#if BRPC_WITH_RDMA
+#if 1
         if (!OptionsAvailableOverRdma(&_options)) {
             return -1;
         }

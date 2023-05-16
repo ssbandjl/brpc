@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-#if BRPC_WITH_RDMA
+#if 1
 
 #include <errno.h>
 #include <stdlib.h>

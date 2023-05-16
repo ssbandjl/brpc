@@ -16,5 +16,24 @@ gflags：广泛用于定义全局选项
 protobuf：消息的序列化，服务的接口
 leveldb：rpcz 需要记录 RPC 以进行跟踪
 
+google test(gtest), 单元测试
+testing::UnitTest::Run
+  testing::internal::UnitTestImpl::RunAllTests
+    testing::TestCase::Run
+      testing::TestInfo::Run
+        testing::Test::Run
+          testing::internal::HandleExceptionsInMethodIfSupported<testing::Test
+            RdmaTest_client_close_before_hello_send_Test::TestBody
+              RdmaTest::StartServer
+
+cd test && gdb ./brpc_rdma_unittest
+rdma -> brpc_rdma_unittest.cpp -> main
+int main(int argc, char* argv[])
+  testing::InitGoogleTest
+  GFLAGS_NS::ParseCommandLineFlags
+  RUN_ALL_TESTS -> TEST_F -> TEST_F(RdmaTest, client_close_before_hello_send)
+    StartServer -> void StartServer(bool use_rdma = true)
+      EXPECT_EQ(0, _server.Start(PORT, &options)) -> int Server::Start(int port, const ServerOptions* opt) -> EndPoint::EndPoint(ip_t ip2, int port2) : ip(ip2), port(port2) -> if (ExtendedEndPoint::is_extended(*this)) 拉远端点 -> 
+  
 
 

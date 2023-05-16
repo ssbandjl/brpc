@@ -17,7 +17,7 @@
 
 // #define BRPC_WITH_RDMA 1
 
-#if BRPC_WITH_RDMA
+#if 1
 
 #include <dlfcn.h>                                // dlopen
 #include <pthread.h>

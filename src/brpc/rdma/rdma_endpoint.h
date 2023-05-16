@@ -18,7 +18,7 @@
 #ifndef BRPC_RDMA_ENDPOINT_H
 #define BRPC_RDMA_ENDPOINT_H
 
-#if BRPC_WITH_RDMA
+#if 1
 #include <cstring>
 #include <iostream>
 #include <string>
