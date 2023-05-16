@@ -7,10 +7,12 @@ make
 
 tools/print_gcc_version.cc
 
-$ cd example/echo_c++
-$ make
-$ ./echo_server &
-$ ./echo_client
+cd example/echo_c++
+make
+./echo_server &
+./echo_client
+
+gdb ./echo_server
 
 gflags：广泛用于定义全局选项
 protobuf：消息的序列化，服务的接口
@@ -172,5 +174,24 @@ server收数据时在HandleCompletion post recv WR之后发现rc.len大于0，�
 首先还是去ibv_poll_cq，拿到WC之后处理流程和之前一致，但是因为CQ只有处于armed状态的时候才会产生事件，当产生事件之后CQ会由armed转为fired，之后将不会产生事件，因此需要通过ibv_req_notify_cq使CQ重新处于armed状态，这里执行ibv_req_notify_cq的时候设置了solicited_only，所以只有solicit的WR对应的CQE才会触发事件。
 由于在执行ibv_poll_cq到执行ibv_req_notify_cq之间的这段时间里可能产生了新的CQE，因此要再执行一下ibv_poll_cq。
 最后，特别感谢Tuvie在学习brpc rdma过程中的答疑~
+
+brpc源码分析——线程模型, 参考:https://blog.csdn.net/saddlesad/article/details/123481856
+example/echo_c++/server.cpp -> main -> int main(int argc, char* argv[])
+DEFINE_xxx port, listen_addr...
+server.AddService 添加服务。 上面的 ServiceOptions 中解释了参数。 注意：禁止在服务器运行时添加服务。 成功返回 0，否则返回 -1 -> int Server::AddService
+  AddServiceInternal -> int Server::AddServiceInternal
+    InitializeOnce -> int Server::InitializeOnce()
+      GlobalInitializeOrDie -> void GlobalInitializeOrDie() -> pthread_once -> GlobalInitializeOrDieImpl -> static void GlobalInitializeOrDieImpl()
+        sigaction(SIGPIPE, NULL, &oldact)
+        SetLogHandler(&BaiduStreamingLogHandler) 设置日志, protobuf 库有时会将警告和错误消息写入 stderr。 这些消息主要对开发人员有用，但也可以帮助最终用户找出问题。 如果您希望将这些消息发送到 stderr 以外的其他地方，请调用 SetLogHandler() 来设置您自己的处理程序。 这将返回旧的处理程序。 将处理程序设置为 NULL 以忽略日志消息（但另请参阅下面的 LogSilencer）。显然，SetLogHandler 不是线程安全的。 您应该只在初始化时调用它，并且可能不从库代码中调用。 如果您只是想暂时抑制日志消息（例如，因为您有一些代码会频繁触发它们并且您知道警告对您不重要），请使用下面的 LogSilencer 类
+        SSL_library_init 添加由SSL/TLS直接和间接使用的密码和摘要
+        SSL_load_error_strings, load and free error strings
+        SSLThreadInit
+        InitCommonStrings
+      _fullname_service_map.init
+      _service_map
+      _method_map
+      _ssl_ctx_map
+
 
 
