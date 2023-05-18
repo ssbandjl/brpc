@@ -7,13 +7,6 @@ make
 
 tools/print_gcc_version.cc
 
-cd example/echo_c++
-make
-./echo_server &
-./echo_client
-
-gdb ./echo_server
-
 gflags：广泛用于定义全局选项
 protobuf：消息的序列化，服务的接口
 leveldb：rpcz 需要记录 RPC 以进行跟踪
@@ -175,6 +168,11 @@ server收数据时在HandleCompletion post recv WR之后发现rc.len大于0，�
 由于在执行ibv_poll_cq到执行ibv_req_notify_cq之间的这段时间里可能产生了新的CQE，因此要再执行一下ibv_poll_cq。
 最后，特别感谢Tuvie在学习brpc rdma过程中的答疑~
 
+cd example/echo_c++
+make
+./echo_server &
+./echo_client
+gdb ./echo_server, proto: example/echo_c++/echo.proto, 实现service接口: class EchoServiceImpl : public EchoService, 
 brpc源码分析——线程模型, 参考:https://blog.csdn.net/saddlesad/article/details/123481856
 example/echo_c++/server.cpp -> main -> int main(int argc, char* argv[])
 DEFINE_xxx port, listen_addr...
@@ -193,5 +191,38 @@ server.AddService 添加服务。 上面的 ServiceOptions 中解释了参数。
       _method_map
       _ssl_ctx_map
 
+client, example/echo_c++/client.cpp, main -> int main(int argc, char* argv[])
+ParseCommandLineFlags
+brpc::Channel channel -> Channel 表示到服务器的通信线路。 请注意 Channel 是线程安全的，可以由程序中的所有线程共享
+channel.Init
 
+gdb, info threads, thread xxx, 
+worker_thread, 启动工作线程
+main -> brpc::ChannelOptions options
+  ChannelOptions 初始化默认选项
+  bool enable_circuit_breaker 当某个服务器节点的错误率过高时，隔离该节点。 请注意，此隔离是全局的，在隔离期间，该节点将对在此进程中运行的所有通道不可用。 默认值：假
+  AdaptiveProtocolType protocol -> class AdaptiveProtocolType, 可由 ProtocolType 和名称分配, 序列化协议，定义在 src/brpc/options.proto 中，注意：你也可以为该字段指定协议名称，例如：options.protocol = "baidu_std";
+    void operator=(butil::StringPiece name) 赋值运算符重载 -> StringToProtocolType -> ProtocolType StringToProtocolType
+      GlobalInitializeOrDie -> void GlobalInitializeOrDie() -> pthread_once(&register_extensions_once GlobalInitializeOrDieImpl -> static void GlobalInitializeOrDieImpl
+
+
+bthread_start_background
+start_from_non_worker
+get_or_new_task_control
+bthread::TaskControl::init -> int TaskControl::init
+void* TaskControl::worker_thread
+TaskGroup* TaskControl::create_group
+int TaskControl::_add_group
+void TaskControl::signal_task
+int TaskControl::add_workers
+void* TaskControl::worker_thread(void* arg)
+  g->run_main_task() bthread::TaskGroup::run_main_task
+  bthread::TaskGroup::wait_task
+  futex_wait_private
+
+
+
+
+zero_copy, class IOBuf, BlockRef, 
+src/butil/iobuf.h -> class IOBuf -> IOBuf 是一个非连续缓冲区，可以在不复制有效负载的情况下进行剪切和组合。 它也可以从文件描述符中读取或刷新到文件描述符中。 IOBuf 是[线程兼容的]。 即在不同线程中同时使用不同的 IOBuf 是安全的，从不同线程读取静态 IOBuf 也是安全的。 IOBuf [不是线程安全的]。 同时从不同线程修改同一个 IOBuf 是不安全的并且可能会崩溃
 

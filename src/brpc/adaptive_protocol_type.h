@@ -52,6 +52,7 @@ public:
         _param.clear();
     }
 
+    //  赋值运算符重载
     void operator=(butil::StringPiece name) {
         butil::StringPiece param;
         const size_t pos = name.find(':');

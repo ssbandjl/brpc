@@ -43,6 +43,7 @@ public:
                       google::protobuf::Closure* done) {
         // This object helps you to call done->Run() in RAII style. If you need
         // to process the request asynchronously, pass done_guard.release().
+        // 这个对象确保在return时自动调用done->Run(), 不管成功失败，done->Run()必须在请求处理完成后被用户调用一次, 不管在中间还是末尾脱离服务回调，都会使done_guard析构，其中会调用done->Run()。这个机制称为RAII。没有这个的话你得在每次return前都加上, done->Run()，极易忘记, 异步服务调用release
         brpc::ClosureGuard done_guard(done);
 
         brpc::Controller* cntl =
@@ -58,6 +59,7 @@ public:
                   << " (attached=" << cntl->request_attachment() << ")";
 
         // Fill response.
+        // 填写response
         response->set_message(request->message());
 
         // You can compress the response by setting Controller, but be aware
