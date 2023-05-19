@@ -1,0 +1,29 @@
+
+(gdb) p *(const brpc::ChannelOptions *) 0x7fffffffdab0
+$6 = {
+  connect_timeout_ms = 200, 
+  timeout_ms = 100, 
+  backup_request_ms = -1, 
+  max_retry = 3, 
+  enable_circuit_breaker = false, 
+  protocol = {
+    _type = brpc::PROTOCOL_BAIDU_STD, 
+    _name = "", 
+    _param = ""
+  }, 
+  connection_type = {
+    _type = brpc::CONNECTION_TYPE_UNKNOWN, 
+    _error = false
+  }, 
+  succeed_without_server = true, 
+  log_succeed_without_server = true, 
+  use_rdma = false, 
+---Type <return> to continue, or q <return> to quit---
+  auth = 0x0, 
+  retry_policy = 0x0, 
+  ns_filter = 0x0, 
+  connection_group = "", 
+  _ssl_options = {
+    _ptr = 0x0
+  }
+}
