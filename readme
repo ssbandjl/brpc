@@ -194,8 +194,48 @@ server.AddService 添加服务。 上面的 ServiceOptions 中解释了参数。
 client, example/echo_c++/client.cpp, main -> int main(int argc, char* argv[])
 ParseCommandLineFlags
 brpc::Channel channel -> Channel 表示到服务器的通信线路。 请注意 Channel 是线程安全的，可以由程序中的所有线程共享
-channel.Init
-
+channel.Init -> int Channel::Init
+#####################################
+将此通道连接到一组服务器，这些服务器的地址可以根据其协议通过“naming_service_url”访问。 使用“load_balancer_name”指定的方法将流量分配给服务器。 如果 options 为 NULL，则使用默认选项。 支持的命名服务（“protocol://service_name”）：
+bns://<node-name> # 百度命名服务
+file://<file-path> # 从文件中加载地址
+list://addr1,addr2,... # 使用以逗号分隔的地址
+http://<url> # 域名服务，又名 DNS。
+支持的负载均衡器：
+rr # 循环，选择下一个服务器
+random # 随机选择一个服务器
+la # 本地感知
+c_murmurhash/c_md5 # 与 murmurhash3/md5 一致的散列
+"" 或 NULL # 将 `naming_service_url' 视为 `server_addr_and_port'
+# Init(xxx, "", options) 和 Init(xxx, NULL, options)
+# 与 Init(xxx, options) 完全相同
+#####################################
+-> int Channel::Init
+  GlobalInitializeOrDie
+  const Protocol* protocol = FindProtocol(ptype) -> (gdb) p *(const brpc::Protocol *) 0x16ff2a0 -> name = "baidu_std", 
+  InitSingle -> int Channel::InitSingle
+    GlobalInitializeOrDie
+    InitChannelOptions -> int Channel::InitChannelOptions
+      rdma::GlobalRdmaInitializeOrDie()
+    ...
+    SocketMapInsert
+example::EchoService_Stub stub(&channel) -> example::EchoService_Stub::EchoService_Stub
+while (!brpc::IsAskedToQuit()) -> ctrl+c
+  request.set_message("hello world")
+  stub.Echo(&cntl, &request, &response, NULL) -> void EchoService_Stub::Echo -> implements EchoService -> void EchoService_Stub::Echo -> channel_->CallMethod -> void Channel::CallMethod -> cntl->IssueRPC  -> void Controller::IssueRPC 使用固定的 start_realtime_us（自大纪元以来的微秒数）可提供更准确的截止日期
+    // Make request
+    butil::IOBuf packet
+    _pack_request -> void PackRpcRequest
+      req_buf->append(request_body) -> inline int IOBuf::append -> void IOBuf::append
+    _current_call.sending_sock->Write(&packet, &wopt) -> int Socket::Write -> int Socket::StartWrite
+      if (_rdma_ep && _rdma_state != RDMA_OFF)
+      nw = _rdma_ep->CutFromIOBufList(data_arr, 1) -> ssize_t RdmaEndpoint::CutFromIOBufList
+        wr.sg_list = sglist
+        cut_into_sglist_and_iobuf sglist -> ssize_t cut_into_sglist_and_iobuf ***** -> class RdmaIOBuf : public butil::IOBuf -> sglist[i].addr = (uint64_t)start
+          cutn 从前面切掉 n 个字节并附加到 `out' 如果 n == 0，则什么都不切； 如果 n >= length()，所有字节都被剪切 返回字节剪切
+        wr.send_flags |= IBV_SEND_SOLICITED 设置 RDMA 数据包中的请求位。 这会通知另一方在收到 RDMA 操作后生成完成事件。
+        wr.imm_data = butil::HostToNet32(imm)
+        ibv_post_send
 gdb, info threads, thread xxx, 
 worker_thread, 启动工作线程
 main -> brpc::ChannelOptions options
@@ -203,9 +243,7 @@ main -> brpc::ChannelOptions options
   bool enable_circuit_breaker 当某个服务器节点的错误率过高时，隔离该节点。 请注意，此隔离是全局的，在隔离期间，该节点将对在此进程中运行的所有通道不可用。 默认值：假
   AdaptiveProtocolType protocol -> class AdaptiveProtocolType, 可由 ProtocolType 和名称分配, 序列化协议，定义在 src/brpc/options.proto 中，注意：你也可以为该字段指定协议名称，例如：options.protocol = "baidu_std";
     void operator=(butil::StringPiece name) 赋值运算符重载 -> StringToProtocolType -> ProtocolType StringToProtocolType
-      GlobalInitializeOrDie -> void GlobalInitializeOrDie() -> pthread_once(&register_extensions_once GlobalInitializeOrDieImpl -> static void GlobalInitializeOrDieImpl
-
-
+      GlobalInitializeOrDie -> void GlobalInitializeOrDie() -> pthread_once(&register_extensions_once GlobalInitializeOrDieImpl -> static void GlobalInitializeOrDieImpl -> ...
 bthread_start_background
 start_from_non_worker
 get_or_new_task_control
@@ -226,3 +264,81 @@ void* TaskControl::worker_thread(void* arg)
 zero_copy, class IOBuf, BlockRef, 
 src/butil/iobuf.h -> class IOBuf -> IOBuf 是一个非连续缓冲区，可以在不复制有效负载的情况下进行剪切和组合。 它也可以从文件描述符中读取或刷新到文件描述符中。 IOBuf 是[线程兼容的]。 即在不同线程中同时使用不同的 IOBuf 是安全的，从不同线程读取静态 IOBuf 也是安全的。 IOBuf [不是线程安全的]。 同时从不同线程修改同一个 IOBuf 是不安全的并且可能会崩溃
 
+编译 proto 文件
+protoc echo.proto --cpp_out=./
+
+
+enable rdma, https://github.com/apache/brpc/blob/master/docs/en/rdma.md
+sh config_brpc.sh --with-rdma --headers="/usr/include" --libs="/usr/lib64 /usr/bin"
+make
+cd example/rdma_performance  # example for rdma
+make
+
+rdma server
+example/rdma_performance/server.cpp --rdma_device -> main
+ParseCommandLineFlags
+perf_test_service_impl
+int Server::Start(int port, const ServerOptions* opt)
+  EndPoint::EndPoint
+  int Server::StartInternal
+  InitializeOnce
+
+
+void* TaskControl::worker_thread
+run_main_task
+bthread_make_fcontext
+  bthread::TaskGroup::task_runner
+    brpc::Socket::ProcessEvent
+      brpc::rdma::RdmaEndpoint::PollCq
+
+
+rdmd client example/rdma_performance/client.cpp -> main
+ParseCommandLineFlags
+GlobalRdmaInitializeOrDie
+StartDummyServerAt 启动一个监听“端口(8001)”的虚拟服务器。 如果虚拟服务器已经在运行，则此函数不执行任何操作并失败。 注意：第二个参数（ProfilerLinker）用于在定义相应的宏时链接分析函数，忽略它即可。 成功返回 0，否则返回 -1 -> int StartDummyServerAt
+  BAIDU_SCOPED_LOCK(g_dummy_server_mutex) 互斥锁,行号
+  dummy_server->Start -> int Server::Start
+g_servers.push_back
+Test(i, j) -> void Test
+  PerformanceTest* t = new PerformanceTest
+    butil::fast_rand_bytes 快速随机字节
+    _attachment.append(_addr, attachment_size)
+  t->Init() -> int Init()
+    new brpc::Channel()
+    _channel->Init
+  bthread_start_background PerformanceTest::RunTest 创建具有属性“attr”的bthread“fn(args)”并将标识符放入“tid”。 此函数的行为更接近于 pthread_create：在安排新线程运行后，它返回。 换句话说，新线程可能需要比 bthread_start_urgent() 更长的时间来运行
+成功返回 0，否则返回 errno -> static void* RunTest
+    test->SendRequest() -> void SendRequest
+      closure->cntl->request_attachment().append(_attachment) 用户附加数据或 http 请求的主体，直接连接到网络而不是序列化为 protobuf 消息
+      HandleResponse
+      stub.Test -> void Test
+  Avg-Latency
+  90th-Latency
+  DeleteTest
+
+
+bthread::TaskGroup::task_runner
+  brpc::Socket::KeepWrite
+    brpc::Socket::DoWrite
+      brpc::rdma::RdmaEndpoint::CutFromIOBufList
+
+output/lib/libbrpc.so
+
+
+
+void* TaskControl::worker_thread
+bthread::TaskGroup::run_main_task
+sched_to
+bthread::get_stack
+get_object<bthread::StackFactory<bthread::NormalStackClass>::Wrapper
+Wrapper
+bthread_make_fcontext
+bthread::TaskGroup::task_runner
+brpc::rdma::RdmaEndpoint::ProcessHandshakeAtClient
+~RunGuard
+StartWrite
+KeepWriteIfConnected
+void Socket::AfterAppConnected
+  KeepWrite -> void* Socket::KeepWrite
+    ssize_t Socket::DoWrite
+      CutFromIOBufList

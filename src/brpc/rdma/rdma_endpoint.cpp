@@ -1341,6 +1341,7 @@ void RdmaEndpoint::PollCq(Socket* m) {
     ibv_wc wc[FLAGS_rdma_cqe_poll_once];
     while (true) {
         int cnt = ibv_poll_cq(ep->_resource->cq, FLAGS_rdma_cqe_poll_once, wc);
+        PLOG(WARNING) << "ibv_poll_cq done";
         if (cnt < 0) {
             const int saved_errno = errno;
             PLOG(WARNING) << "Fail to poll cq: " << s->description();

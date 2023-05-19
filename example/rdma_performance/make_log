@@ -1,0 +1,24 @@
+[root@n72 brpc]# cd example/rdma_performance/
+You have new mail in /var/spool/mail/root
+[root@n72 rdma_performance]# make
+> Generating test.pb.cc
+/usr/bin/protoc --cpp_out=. --proto_path=.  test.proto
+> Compiling test.pb.o
+g++ -c -I/usr/include/ -I../../output/include -DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g -DBRPC_WITH_RDMA -std=c++0x -DNDEBUG -O2 -D__const__= -pipe -W -Wall -Wno-unused-parameter -fPIC -fno-omit-frame-pointer test.pb.cc -o test.pb.o
+<command-line>:0:0: warning: "__const__" redefined [enabled by default]
+<command-line>:0:0: note: this is the location of the previous definition
+> Compiling client.o
+g++ -c -I/usr/include/ -I../../output/include -DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g -DBRPC_WITH_RDMA -std=c++0x -DNDEBUG -O2 -D__const__= -pipe -W -Wall -Wno-unused-parameter -fPIC -fno-omit-frame-pointer client.cpp -o client.o
+<command-line>:0:0: warning: "__const__" redefined [enabled by default]
+<command-line>:0:0: note: this is the location of the previous definition
+> Linking client
+g++ -L/usr/lib64 -L../../output/lib -Xlinker "-(" test.pb.o client.o -Wl,-Bstatic  -lbrpc -Wl,-Bdynamic -Xlinker "-)" -lpthread -lssl -lcrypto -ldl -lz -lrt -lgflags -lprotobuf -lleveldb -libverbs -o client
+> Compiling server.o
+g++ -c -I/usr/include/ -I../../output/include -DBRPC_WITH_GLOG=0 -DGFLAGS_NS=gflags -D__const__=__unused__ -g -DBRPC_WITH_RDMA -std=c++0x -DNDEBUG -O2 -D__const__= -pipe -W -Wall -Wno-unused-parameter -fPIC -fno-omit-frame-pointer server.cpp -o server.o
+<command-line>:0:0: warning: "__const__" redefined [enabled by default]
+<command-line>:0:0: note: this is the location of the previous definition
+> Linking server
+g++ -L/usr/lib64 -L../../output/lib -Xlinker "-(" test.pb.o server.o -Wl,-Bstatic  -lbrpc -Wl,-Bdynamic -Xlinker "-)" -lpthread -lssl -lcrypto -ldl -lz -lrt -lgflags -lprotobuf -lleveldb -libverbs -o server
+rm test.pb.cc
+[root@n72 rdma_performance]#
+

@@ -30,6 +30,7 @@
 #include "bvar/variable.h"
 #include "test.pb.h"
 
+#define BRPC_WITH_RDMA 1
 #ifdef BRPC_WITH_RDMA
 
 DEFINE_int32(thread_num, 0, "How many threads are used");

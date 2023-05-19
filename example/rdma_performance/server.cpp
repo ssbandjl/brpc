@@ -24,6 +24,7 @@
 #include "bvar/variable.h"
 #include "test.pb.h"
 
+#define BRPC_WITH_RDMA 1
 #ifdef BRPC_WITH_RDMA
 
 DEFINE_int32(port, 8002, "TCP Port of this server");
